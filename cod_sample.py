@@ -9,7 +9,7 @@ class CODMobileSimulator:
         self.ammo = 30
         self.max_ammo = 30
         
-        # Fixed accuracy metrics and weapon stats
+        # Weapon stats: (Min Damage, Max Damage), Accuracy, Ammo Capacity
         self.loadouts = {
             "1": {"name": "M4 (Assault Rifle)", "damage": (15, 25), "accuracy": 0.8, "ammo": 30},
             "2": {"name": "DL Q33 (Sniper)", "damage": (50, 95), "accuracy": 0.5, "ammo": 5},
@@ -18,7 +18,7 @@ class CODMobileSimulator:
         self.selected_weapon = None
 
     def display_health_bar(self, label, hp):
-        # Generates a visual progress bar [||||||....]
+        # Generates a visual progress bar [██████░░░░]
         bars = int(hp / 10)
         bar_str = "█" * bars + "░" * (10 - bars)
         return f"{label}: [{bar_str}] {hp}/100 HP"
@@ -77,7 +77,7 @@ class CODMobileSimulator:
                     if random.random() < self.selected_weapon["accuracy"]:
                         damage = random.randint(*self.selected_weapon["damage"])
                         
-                        # Randomly trigger a critical headshot
+                        # Randomly trigger a critical headshot (20% chance)
                         if random.random() < 0.20: 
                             damage = int(damage * 1.5)
                             print(f"🎯 HEADSHOT!! You absolutely beamed them for {damage} damage!")
@@ -113,7 +113,7 @@ class CODMobileSimulator:
             if action == 's':
                 enemy_accuracy = 0.25
             elif not player_fired:
-                enemy_accuracy = 0.40 # Harder to track someone who isn't standing and shooting
+                enemy_accuracy = 0.40 
             else:
                 enemy_accuracy = 0.60
 
